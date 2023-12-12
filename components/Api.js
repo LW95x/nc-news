@@ -27,3 +27,14 @@ export const getUsers = () => {
         return res.data.users;
     })
 }
+
+export const patchArticle = (article_id, newVote) => {
+
+    const patchBody = {
+        inc_votes: newVote,
+    }
+
+    return ncNewsApi.patch(`/api/articles/${article_id}`, patchBody).then( (res) => {
+        return res.data;
+    })
+}
