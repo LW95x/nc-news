@@ -25,24 +25,22 @@ const ArticleList = () => {
           <li key={article.article_id}>
           <div className="article-container">
             <Card
-              key={article.article_id}
               style={{
                 display: "flex",
                 flexDirection: "row",
-                width: "40rem",
-                height: "30rem",
-                marginBottom: "1rem",
+                width: "50rem",
+                marginBottom: "1rem"
               }}
             >
               <div style={{ padding: "1rem" }}>
                 <Button variant="dark" style={{marginBottom: "0.5rem"}}><FaArrowUp /></Button>
-                <Card.Title style={{marginLeft: "0.9rem", fontWeight: "bold"}}>0</Card.Title>
+                <Card.Title style={{marginLeft: "0.9rem", fontWeight: "bold"}}>{article.votes}</Card.Title>
                 <Button variant="dark"><FaArrowDown /></Button>
               </div>
               <Card.Body>
                 <Link className="link" to={`/api/articles/${article.article_id}`}><Card.Title>{article.title}</Card.Title></Link>
-                <Link className="link" to={`/api/articles/${article.article_id}`}><Card.Img src={article.article_img_url} style={{marginBottom: "1rem"}}/></Link>
-                <Card.Text>
+                <Link className="link" to={`/api/articles/${article.article_id}`}><Card.Img src={article.article_img_url} style={{maxHeight: "90%", maxWidth: "auto"}}/></Link>
+                <Card.Text className="anchor-text-list">
                 <Link className="link" to={`/api/articles/${article.article_id}`}>{article.comment_count} comments</Link> | Posted by {article.author}{" "}
                   | Created at {new Date(article.created_at).toLocaleDateString('en-GB')} | {article.topic}
                 </Card.Text>

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getSingleArticle } from "../components/Api";
 import { Card, Button } from "react-bootstrap";
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import CommentList from "../components/Comments";
 
 export default function SingleArticle() {
   const [article, setArticle] = useState({});
@@ -21,6 +22,7 @@ export default function SingleArticle() {
   }
 
   return (
+    <div>
     <div className="article-container">
       <Card
         key={article.article_id}
@@ -45,13 +47,13 @@ export default function SingleArticle() {
           </Button>
         </div>
         <Card.Body style={{overflowY: "auto", maxHeight: "100%"}}>
-          <Card.Title>{article.title}</Card.Title>
+          <Card.Title style={{marginBottom: '1rem'}}>{article.title}</Card.Title>
           <Card.Img
             src={article.article_img_url}
-            style={{ maxWidth: "100%", height: "auto", marginBottom: "1rem" }}
+            style={{ maxWidth: "auto", maxHeight: "90%", marginBottom: "1rem" }}
           />
-          <Card.Text style={{textAlign: "justify", padding: "1rem"}}>{article.body}</Card.Text>
-          <Card.Text>
+          <Card.Text style={{textAlign: "justify"}}>{article.body}</Card.Text>
+          <Card.Text className="anchor-text-article">
             {article.comment_count} comments | Posted by {article.author} |
             Created at{" "}
             {new Date(article.created_at).toLocaleDateString("en-GB")} |{" "}
@@ -60,5 +62,7 @@ export default function SingleArticle() {
         </Card.Body>
       </Card>
     </div>
+      <CommentList/>
+      </div>
   );
 }
