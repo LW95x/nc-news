@@ -22,8 +22,9 @@ export default function SingleArticle() {
           display: "flex",
           flexDirection: "row",
           width: "50rem",
-          height: "40rem",
+          height: "50rem",
           marginBottom: "1rem",
+          overflow: "hidden"
         }}
       >
         <div style={{ padding: "1rem" }}>
@@ -37,12 +38,13 @@ export default function SingleArticle() {
             <FaArrowDown />
           </Button>
         </div>
-        <Card.Body>
+        <Card.Body style={{overflowY: "auto", maxHeight: "100%"}}>
           <Card.Title>{article.title}</Card.Title>
           <Card.Img
             src={article.article_img_url}
-            style={{ marginBottom: "1rem" }}
+            style={{ maxWidth: "100%", height: "auto", marginBottom: "1rem" }}
           />
+          <Card.Text style={{textAlign: "justify", padding: "1rem"}}>{article.body}</Card.Text>
           <Card.Text>
             {article.comment_count} comments | Posted by {article.author} |
             Created at{" "}
