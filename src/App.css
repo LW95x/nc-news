@@ -1,6 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  font-family: 'Quicksand', sans-serif;
+  background-color: grey;
+}
+
+.article-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-text {
   text-align: center;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  background-color: grey;
+  font-weight: "bolder";
+}
+
+.sub-header-text {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+#header {
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
