@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle, patchArticle } from "../components/Api";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import CommentList from "../components/Comments";
 
 export default function SingleArticle() {
   const [article, setArticle] = useState({});
   const [votes, setVotes] = useState(article.votes);
+  const [err, setErr] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   let { article_id } = useParams();
 
@@ -28,7 +30,12 @@ export default function SingleArticle() {
 
     patchArticle(article_id, 1).then((updatedArticle) => {
       setVotes(updatedArticle.votes);
-    });
+      setErr(null);
+      setSuccess('Thank you for voting!')
+    }).catch( (err) => {
+      setVotes((currentVotes) => currentVotes - 1);
+      setErr('Something went wrong, please try again.');
+    })
   };
 
   const downVote = () => {
@@ -36,11 +43,18 @@ export default function SingleArticle() {
 
     patchArticle(article_id, -1).then((updatedArticle) => {
       setVotes(updatedArticle.votes);
-    });
+      setErr(null);
+      setSuccess('Thank you for voting!')
+    }).catch( (err) => {
+      setVotes((currentVotes) => currentVotes + 1);
+      setErr('Something went wrong, please try again.');
+    })
   };
 
   return (
     <div>
+      {err ? <Alert variant="danger" style={{textAlign: "center"}}>{err}</Alert> : null}
+      {success ? <Alert variant="success" style={{textAlign: "center"}}>{success}</Alert> : null}
       <div className="article-container">
         <Card
           key={article.article_id}
