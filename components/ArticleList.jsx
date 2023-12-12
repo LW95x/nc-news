@@ -19,8 +19,10 @@ const ArticleList = () => {
 
   return (
     <>
+    <ul>
       {articles.map((article) => {
         return (
+          <li key={article.article_id}>
           <div className="article-container">
             <Card
               key={article.article_id}
@@ -47,8 +49,10 @@ const ArticleList = () => {
               </Card.Body>
             </Card>
           </div>
+          </li>
         );
       })}
+      </ul>
     </>
   );
 };

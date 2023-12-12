@@ -43,3 +43,7 @@
   justify-content: center;
   display: flex;
 }
+
+ul {
+  list-style-type: none;
+}
