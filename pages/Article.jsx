@@ -6,13 +6,19 @@ import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 
 export default function SingleArticle() {
   const [article, setArticle] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   let { article_id } = useParams();
 
   useEffect(() => {
     getSingleArticle(article_id).then((res) => {
       setArticle(res);
+      setIsLoading(false);
     });
   }, []);
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <div className="article-container">
