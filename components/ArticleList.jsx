@@ -22,8 +22,7 @@ const ArticleList = () => {
     <ul>
       {articles.map((article) => {
         return (
-          <li key={article.article_id}>
-          <div className="article-container">
+          <li key={article.article_id} className="article-container">
             <Card
               style={{
                 display: "flex",
@@ -46,7 +45,6 @@ const ArticleList = () => {
                 </Card.Text>
               </Card.Body>
             </Card>
-          </div>
           </li>
         );
       })}

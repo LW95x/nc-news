@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 
 const CommentList = () => {
   const [comments, setComments] = useState([]);
-  const [users, setUsers] = useState([]);
   let { article_id } = useParams();
 
   useEffect(() => {
@@ -20,8 +19,7 @@ const CommentList = () => {
       <ul className="ul-comments">
         {comments.map((comment) => {
           return (
-            <li key={comment.comment_id}>
-                <div className="comment-container">
+            <li key={comment.comment_id} className="comment-container">
               <Card
                 style={{
                   display: "flex",
@@ -52,7 +50,6 @@ const CommentList = () => {
                   </Card.Text>
                 </Card.Body>
               </Card>
-              </div>
             </li>
           );
         })}
