@@ -8,7 +8,7 @@ const Header = () => {
     <div id="header">
       <h1 className="header-text">NC News</h1>
       <Navbar bg="dark" data-bs-theme="dark" style={{marginBottom: "2rem"}}>
-        <Container className="nav-container">
+        <Container>
         <Navbar.Brand href="">Topic</Navbar.Brand>
             <Navbar.Brand href="/" style={{marginLeft: "26rem"}}><GiNewspaper size={80}/></Navbar.Brand>
             <Nav className="me-auto">
