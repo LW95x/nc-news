@@ -26,11 +26,11 @@ const AddComment = ({ article_id, setComments }) => {
           });
         })
         .catch((err) => {
-          setErr("Something went wrong, please try again.");
+          setErr("Error: Something went wrong! Please try reloading the page.");
           setSuccess(null);
         });
     } else {
-      setErr("Error: No input");
+      setErr("Error: Please enter a valid comment");
       setSuccess(null);
     }
   };
@@ -57,9 +57,9 @@ const AddComment = ({ article_id, setComments }) => {
             display: "flex",
             flexDirection: "row",
             width: "40rem",
-            height: "10rem",
+            height: "20rem",
             marginBottom: "1rem",
-            border: "1px solid black",
+            border: "1px solid black"
           }}
         >
           <Form
@@ -69,10 +69,11 @@ const AddComment = ({ article_id, setComments }) => {
             <Form.Group className="mb-3">
               <Form.Label>Send a comment:</Form.Label>
               <Form.Control
-                type="text"
+                as="textarea"
                 placeholder="Enter comment here..."
                 onChange={handleChange}
                 value={input}
+                style={{height: "12rem"}}
               />
             </Form.Group>
             <Button variant="primary" type="submit" disabled={submitting}>

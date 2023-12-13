@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getCommentsByArticle } from "./Api";
 import { Card, Button } from "react-bootstrap";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
@@ -27,6 +27,7 @@ const CommentList = ({ comments, setComments }) => {
                   height: "15rem",
                   marginBottom: "1rem",
                   border: "1px solid black",
+                  wordWrap: "break-word"
                 }}
               >
                 <div style={{ padding: "1rem" }}>
@@ -48,7 +49,7 @@ const CommentList = ({ comments, setComments }) => {
                     {new Date(comment.created_at).toLocaleDateString("en-GB")}
                   </Card.Text>
                   <hr />
-                  <Card.Text>{comment.body}</Card.Text>
+                  <Card.Text style={{ overflowWrap: "anywhere"}}>{comment.body}</Card.Text>
                 </Card.Body>
               </Card>
             </li>
