@@ -86,9 +86,11 @@ const AddComment = ({ article_id, setComments }) => {
                 style={{ height: "12rem", resize: "none" }}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={submitting}>
+            <div className="submit-button">
+            <Button variant="dark" type="submit" disabled={submitting}>
               {submitting ? "Submitting..." : "Submit"}
             </Button>
+            </div>
           </Form>
         </Card>
       </div>
