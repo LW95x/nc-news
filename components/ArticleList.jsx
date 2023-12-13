@@ -29,6 +29,7 @@ const ArticleList = () => {
                   flexDirection: "row",
                   width: "50rem",
                   marginBottom: "1rem",
+                  border: "1px solid black"
                 }}
               >
                 <div style={{ padding: "1rem" }}>

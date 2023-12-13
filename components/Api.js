@@ -1,40 +1,54 @@
 import axios from "axios";
 
 const ncNewsApi = axios.create({
-    baseURL: "https://be-nc-news-sfsv.onrender.com",
+  baseURL: "https://be-nc-news-sfsv.onrender.com",
 });
 
 export const getAllArticles = () => {
-    return ncNewsApi.get("/api/articles").then( (res) => {
-        return res.data.articles;
-    });
+  return ncNewsApi.get("/api/articles").then((res) => {
+    return res.data.articles;
+  });
 };
 
 export const getSingleArticle = (article_id) => {
-    return ncNewsApi.get(`/api/articles/${article_id}`).then( (res) => {
-        return res.data.article[0];
-    })
-}
+  return ncNewsApi.get(`/api/articles/${article_id}`).then((res) => {
+    return res.data.article[0];
+  });
+};
 
 export const getCommentsByArticle = (article_id) => {
-    return ncNewsApi.get(`/api/articles/${article_id}/comments`).then( (res) => {
-        return res.data.comments;
-    })
-}
+  return ncNewsApi.get(`/api/articles/${article_id}/comments`).then((res) => {
+    return res.data.comments;
+  });
+};
 
 export const getUsers = () => {
-    return ncNewsApi.get('/api/users').then( (res) => {
-        return res.data.users;
-    })
-}
+  return ncNewsApi.get("/api/users").then((res) => {
+    return res.data.users;
+  });
+};
 
 export const patchArticle = (article_id, newVote) => {
+  const patchBody = {
+    inc_votes: newVote,
+  };
 
-    const patchBody = {
-        inc_votes: newVote,
-    }
+  return ncNewsApi
+    .patch(`/api/articles/${article_id}`, patchBody)
+    .then((res) => {
+      return res.data;
+    });
+};
 
-    return ncNewsApi.patch(`/api/articles/${article_id}`, patchBody).then( (res) => {
-        return res.data;
-    })
-}
+export const postComment = (article_id, username, body) => {
+  const postBody = {
+    username: username,
+    body: body,
+  };
+
+  return ncNewsApi
+    .post(`/api/articles/${article_id}/comments`, postBody)
+    .then((res) => {
+      return res.data;
+    });
+};

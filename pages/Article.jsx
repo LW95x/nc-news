@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom";
 import { getSingleArticle, patchArticle } from "../components/Api";
 import { Card, Button, Alert } from "react-bootstrap";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+
 import CommentList from "../components/Comments";
+import AddComment from "../components/AddComment";
 
 export default function SingleArticle() {
   const [article, setArticle] = useState({});
   const [votes, setVotes] = useState(article.votes);
+  const [comments, setComments] = useState([]);
   const [err, setErr] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,39 +25,51 @@ export default function SingleArticle() {
   }, []);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <h2 id="loading">Loading...</h2>;
   }
 
   const upVote = () => {
     setVotes((currentVotes) => currentVotes + 1);
 
-    patchArticle(article_id, 1).then((updatedArticle) => {
-      setVotes(updatedArticle.votes);
-      setErr(null);
-      setSuccess('Thank you for voting!')
-    }).catch( (err) => {
-      setVotes((currentVotes) => currentVotes - 1);
-      setErr('Something went wrong, please try again.');
-    })
+    patchArticle(article_id, 1)
+      .then((updatedArticle) => {
+        setVotes(updatedArticle.votes);
+        setErr(null);
+        setSuccess("Thank you for voting!");
+      })
+      .catch((err) => {
+        setVotes((currentVotes) => currentVotes - 1);
+        setErr("Something went wrong, please try again.");
+      });
   };
 
   const downVote = () => {
     setVotes((currentVotes) => currentVotes - 1);
 
-    patchArticle(article_id, -1).then((updatedArticle) => {
-      setVotes(updatedArticle.votes);
-      setErr(null);
-      setSuccess('Thank you for voting!')
-    }).catch( (err) => {
-      setVotes((currentVotes) => currentVotes + 1);
-      setErr('Something went wrong, please try again.');
-    })
+    patchArticle(article_id, -1)
+      .then((updatedArticle) => {
+        setVotes(updatedArticle.votes);
+        setErr(null);
+        setSuccess("Thank you for voting!");
+      })
+      .catch((err) => {
+        setVotes((currentVotes) => currentVotes + 1);
+        setErr("Something went wrong, please try again.");
+      });
   };
 
   return (
     <div>
-      {err ? <Alert variant="danger" style={{textAlign: "center"}}>{err}</Alert> : null}
-      {success ? <Alert variant="success" style={{textAlign: "center"}}>{success}</Alert> : null}
+      {err ? (
+        <Alert variant="danger" style={{ textAlign: "center" }}>
+          {err}
+        </Alert>
+      ) : null}
+      {success ? (
+        <Alert variant="success" style={{ textAlign: "center" }}>
+          {success}
+        </Alert>
+      ) : null}
       <div className="article-container">
         <Card
           key={article.article_id}
@@ -65,6 +80,7 @@ export default function SingleArticle() {
             height: "50rem",
             marginBottom: "1rem",
             overflow: "hidden",
+            border: "1px solid black",
           }}
         >
           <div style={{ padding: "1rem" }}>
@@ -107,7 +123,8 @@ export default function SingleArticle() {
           </Card.Body>
         </Card>
       </div>
-      <CommentList />
+      <AddComment article_id={article_id} setComments={setComments} />
+      <CommentList comments={comments} setComments={setComments} />
     </div>
   );
 }

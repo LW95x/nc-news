@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { getCommentsByArticle, getUsers } from "./Api";
+import { useEffect } from "react";
+import { getCommentsByArticle } from "./Api";
 import { Card, Button } from "react-bootstrap";
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
-const CommentList = () => {
-  const [comments, setComments] = useState([]);
+const CommentList = ({ comments, setComments }) => {
   let { article_id } = useParams();
 
   useEffect(() => {
@@ -27,6 +26,8 @@ const CommentList = () => {
                   width: "40rem",
                   height: "15rem",
                   marginBottom: "1rem",
+                  border: "1px solid black",
+                  wordWrap: "break-word"
                 }}
               >
                 <div style={{ padding: "1rem" }}>
@@ -43,18 +44,19 @@ const CommentList = () => {
                   </Button>
                 </div>
                 <Card.Body>
-                  <Card.Text>{comment.author} | {new Date(comment.created_at).toLocaleDateString("en-GB")}</Card.Text>
-                  <hr />
                   <Card.Text>
-                    {comment.body}
+                    {comment.author} |{" "}
+                    {new Date(comment.created_at).toLocaleDateString("en-GB")}
                   </Card.Text>
+                  <hr />
+                  <Card.Text style={{ overflowWrap: "anywhere"}}>{comment.body}</Card.Text>
                 </Card.Body>
               </Card>
             </li>
           );
         })}
       </ul>
-      </>
+    </>
   );
 };
 
