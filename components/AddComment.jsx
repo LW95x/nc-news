@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Alert, Button, Card, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form, Modal } from "react-bootstrap";
 import { usernameContext } from "../src/context/User";
 import { postComment } from "./Api";
 
@@ -42,12 +42,22 @@ const AddComment = ({ article_id, setComments }) => {
   return (
     <div>
       {err ? (
-        <Alert variant="danger" style={{ textAlign: "center" }}>
+        <Alert
+          variant="danger"
+          style={{ textAlign: "center" }}
+          dismissible
+          onClose={() => setErr(null)}
+        >
           {err}
         </Alert>
       ) : null}
       {success ? (
-        <Alert variant="success" style={{ textAlign: "center" }}>
+        <Alert
+          variant="success"
+          style={{ textAlign: "center" }}
+          dismissible
+          onClose={() => setSuccess(null)}
+        >
           {success}
         </Alert>
       ) : null}
@@ -59,7 +69,7 @@ const AddComment = ({ article_id, setComments }) => {
             width: "40rem",
             height: "20rem",
             marginBottom: "1rem",
-            border: "1px solid black"
+            border: "1px solid black",
           }}
         >
           <Form
@@ -73,7 +83,7 @@ const AddComment = ({ article_id, setComments }) => {
                 placeholder="Enter comment here..."
                 onChange={handleChange}
                 value={input}
-                style={{height: "12rem", resize: "none"}}
+                style={{ height: "12rem", resize: "none" }}
               />
             </Form.Group>
             <Button variant="primary" type="submit" disabled={submitting}>
