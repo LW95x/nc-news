@@ -61,12 +61,14 @@ export default function SingleArticle() {
   return (
     <div>
       {err ? (
-        <Alert variant="danger" style={{ textAlign: "center" }}>
+        <Alert variant="danger" style={{ textAlign: "center" }} dismissible
+        onClose={() => setErr(null)}>
           {err}
         </Alert>
       ) : null}
       {success ? (
-        <Alert variant="success" style={{ textAlign: "center" }}>
+        <Alert variant="success" style={{ textAlign: "center" }} dismissible
+        onClose={() => setSuccess(null)}>
           {success}
         </Alert>
       ) : null}

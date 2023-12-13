@@ -58,3 +58,14 @@ export const deleteComment = (comment_id) => {
     return res.data;
   })
 }
+
+export const getTopics = () => {
+  return ncNewsApi.get('/api/topics').then( (res) => {
+    return res.data.topics;
+  })
+}
+export const getArticlesByTopic = (topic_name) => {
+  return ncNewsApi.get(`/api/articles?topic=${topic_name}`).then((res) => {
+    return res.data.articles;
+  })
+}

@@ -13,6 +13,7 @@
 #root {
   font-family: "Quicksand", sans-serif;
   background-color: grey;
+  min-height: 100vh;
 }
 
 .article-container {
@@ -88,4 +89,12 @@ h2 {
   top: 0%;
   left: 40%;
   z-index: 10;
+}
+
+.topic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-bottom: 1rem;
 }

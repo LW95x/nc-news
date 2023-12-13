@@ -16,8 +16,7 @@ const Header = () => {
             <Navbar.Brand href="/" style={{marginLeft: "26rem"}}><GiNewspaper size={80}/></Navbar.Brand>
             <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="#topics">Topics</Nav.Link>
-                <Nav.Link href="#articles">Articles</Nav.Link>
+                <Nav.Link href="/api/topics">Topics</Nav.Link>
             </Nav>
         <Navbar.Brand>User: {currentUser.user.username}</Navbar.Brand>
         </Container>
