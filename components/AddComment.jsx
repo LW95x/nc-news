@@ -73,7 +73,7 @@ const AddComment = ({ article_id, setComments }) => {
                 placeholder="Enter comment here..."
                 onChange={handleChange}
                 value={input}
-                style={{height: "12rem"}}
+                style={{height: "12rem", resize: "none"}}
               />
             </Form.Group>
             <Button variant="primary" type="submit" disabled={submitting}>
