@@ -79,7 +79,6 @@ export default function SingleArticle() {
             display: "flex",
             flexDirection: "row",
             width: "50rem",
-            height: "50rem",
             marginBottom: "1rem",
             overflow: "hidden",
             border: "1px solid black",
@@ -100,7 +99,7 @@ export default function SingleArticle() {
               <FaArrowDown />
             </Button>
           </div>
-          <Card.Body style={{ overflowY: "auto", maxHeight: "100%" }}>
+          <Card.Body>
             <Card.Title style={{ marginBottom: "1rem" }}>
               {article.title}
             </Card.Title>
@@ -109,14 +108,16 @@ export default function SingleArticle() {
               src={article.article_img_url}
               style={{
                 maxWidth: "auto",
-                maxHeight: "90%",
+                maxHeight: "100%",
                 marginBottom: "1rem",
               }}
             />
-            <Card.Text style={{ textAlign: "justify" }}>
+            <hr/>
+            <Card.Text style={{ textAlign: "justify", marginRight: "1rem" }}>
               {article.body}
             </Card.Text>
             <Card.Text className="anchor-text-article">
+            <hr/>
               {article.comment_count} comments | Posted by {article.author} |
               Created at{" "}
               {new Date(article.created_at).toLocaleDateString("en-GB")} |{" "}

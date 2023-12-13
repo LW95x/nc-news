@@ -4,10 +4,16 @@ const ncNewsApi = axios.create({
   baseURL: "https://be-nc-news-sfsv.onrender.com",
 });
 
-export const getAllArticles = () => {
-  return ncNewsApi.get("/api/articles").then((res) => {
-    return res.data.articles;
-  });
+export const getArticles = (topic_name) => {
+  if (!topic_name) {
+    return ncNewsApi.get("/api/articles").then((res) => {
+      return res.data.articles;
+    });
+  } else {
+    return ncNewsApi.get(`/api/articles?topic=${topic_name}`).then((res) => {
+      return res.data.articles;
+    });
+  }
 };
 
 export const getSingleArticle = (article_id) => {
@@ -56,16 +62,11 @@ export const postComment = (article_id, username, body) => {
 export const deleteComment = (comment_id) => {
   return ncNewsApi.delete(`/api/comments/${comment_id}`).then((res) => {
     return res.data;
-  })
-}
+  });
+};
 
 export const getTopics = () => {
-  return ncNewsApi.get('/api/topics').then( (res) => {
+  return ncNewsApi.get("/api/topics").then((res) => {
     return res.data.topics;
-  })
-}
-export const getArticlesByTopic = (topic_name) => {
-  return ncNewsApi.get(`/api/articles?topic=${topic_name}`).then((res) => {
-    return res.data.articles;
-  })
-}
+  });
+};
