@@ -3,6 +3,7 @@ import { getArticles } from "./Api";
 import { Card, Button, Navbar, Form } from "react-bootstrap";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import sortArticles from "./SortArticles";
 
 const ArticleList = ({ topic_name }) => {
   const [articles, setArticles] = useState([]);
@@ -27,45 +28,7 @@ const ArticleList = ({ topic_name }) => {
   const handleChange = (event) => {
     const newInput = event.target.value;
     setInput(newInput);
-    sortArticles(newInput);
-  };
-
-  const sortArticles = (input) => {
-    let sortedArticles = [...articles];
-
-    if (input === "date-asc") {
-      sortedArticles.sort((a, b) => {
-        const dateA = new Date(a.created_at);
-        const dateB = new Date(b.created_at);
-        return dateB - dateA;
-      });
-    }
-
-    if (input === "date-desc") {
-      sortedArticles.sort((a, b) => {
-        const dateA = new Date(a.created_at);
-        const dateB = new Date(b.created_at);
-        return dateA - dateB;
-      });
-    }
-
-    if (input === "comment-count-high") {
-      sortedArticles.sort((a, b) => b.comment_count - a.comment_count);
-    }
-
-    if (input === "comment-count-low") {
-      sortedArticles.sort((a, b) => a.comment_count - b.comment_count);
-    }
-
-    if (input === "votes-high") {
-      sortedArticles.sort((a, b) => b.votes - a.votes);
-    }
-
-    if (input === "votes-low") {
-      sortedArticles.sort((a, b) => a.votes - b.votes);
-    }
-
-    setArticles(sortedArticles);
+    sortArticles(newInput, articles, setArticles);
   };
 
   return (
@@ -81,7 +44,7 @@ const ArticleList = ({ topic_name }) => {
               onChange={handleChange}
               style={{ width: "18rem", margin: "1rem" }}
             >
-              <option>Sort by:</option>
+              <option disabled selected>Sort by:</option>
               <option value="date-asc">Date (Newest)</option>
               <option value="date-desc">Date (Oldest)</option>
               <option value="comment-count-high">
