@@ -4,22 +4,23 @@ import Container from "react-bootstrap/Container";
 import { GiNewspaper } from "react-icons/gi";
 import { useContext } from 'react';
 import { usernameContext } from "../src/context/User";
+import { useParams } from "react-router-dom";
 
 const Header = () => {
   const { currentUser } = useContext(usernameContext)
+
   return (
-    <div id="header">
+    <div className="header">
       <h1 className="header-text">NC News</h1>
-      <Navbar bg="dark" data-bs-theme="dark" style={{marginBottom: "2rem"}}>
-        <Navbar.Brand style={{paddingLeft: "5rem"}}>Topic</Navbar.Brand>
-        <Container>
-            <Navbar.Brand href="/" style={{marginLeft: "26rem"}}><GiNewspaper size={80}/></Navbar.Brand>
-            <Nav className="me-auto">
+      <Navbar bg="dark" expand="lg" data-bs-theme="dark" style={{marginBottom: "0.5rem" }}>
+        <Container className="justify-content-center">
+            <Navbar.Brand href="/" style={{marginLeft: "4rem"}}><GiNewspaper size={80}/></Navbar.Brand>
+            <Nav className="align-items-center">
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/api/topics">Topics</Nav.Link>
             </Nav>
-        <Navbar.Brand>User: {currentUser.user.username}</Navbar.Brand>
         </Container>
+        <Navbar.Brand>User: {currentUser.user.username}</Navbar.Brand>
       </Navbar>
     </div>
   );
