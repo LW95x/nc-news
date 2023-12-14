@@ -14,6 +14,7 @@ export default function SingleArticle() {
   const [err, setErr] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [voted, setVoted] = useState(false);
   let { article_id } = useParams();
 
   useEffect(() => {
@@ -29,11 +30,18 @@ export default function SingleArticle() {
   }
 
   const upVote = () => {
+    if (voted) {
+      setSuccess(null);
+      setErr("You have already voted!");
+      return;
+    }
+
     setVotes((currentVotes) => currentVotes + 1);
 
     patchArticle(article_id, 1)
       .then((updatedArticle) => {
         setVotes(updatedArticle.votes);
+        setVoted(true);
         setErr(null);
         setSuccess("Thank you for voting!");
       })

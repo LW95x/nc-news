@@ -36,7 +36,7 @@
   padding-bottom: 1rem;
 }
 
-#header {
+.header {
   align-items: center;
   justify-content: center;
 }
