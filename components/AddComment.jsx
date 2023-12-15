@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Alert, Button, Card, Form, Modal } from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import { usernameContext } from "../src/context/User";
 import { postComment } from "./Api";
 

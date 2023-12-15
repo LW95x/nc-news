@@ -4,7 +4,7 @@ import { getSingleArticle, patchArticle } from "../components/Api";
 import { Card, Button, Alert } from "react-bootstrap";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
-import CommentList from "../components/Comments";
+import CommentList from "../components/CommentList";
 import AddComment from "../components/AddComment";
 
 export default function SingleArticle() {
@@ -12,21 +12,40 @@ export default function SingleArticle() {
   const [votes, setVotes] = useState(article.votes);
   const [comments, setComments] = useState([]);
   const [err, setErr] = useState(null);
+  const [ApiErr, setApiErr] = useState(null);
   const [success, setSuccess] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [voted, setVoted] = useState(false);
   let { article_id } = useParams();
 
   useEffect(() => {
-    getSingleArticle(article_id).then((res) => {
-      setArticle(res);
-      setVotes(res.votes);
-      setIsLoading(false);
-    });
+    getSingleArticle(article_id)
+      .then((res) => {
+        setArticle(res);
+        setVotes(res.votes);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setApiErr(err.response.data.msg);
+        setIsLoading(false);
+        setArticle({});
+      });
   }, []);
 
   if (isLoading) {
-    return <h2 id="loading">Loading...</h2>;
+    return (
+      <Alert variant="secondary" style={{ textAlign: "center" }}>
+        Loading...
+      </Alert>
+    );
+  }
+
+  if (ApiErr) {
+    return (
+      <Alert variant="danger" style={{ textAlign: "center" }}>
+        {ApiErr}
+      </Alert>
+    );
   }
 
   const upVote = () => {
@@ -52,11 +71,18 @@ export default function SingleArticle() {
   };
 
   const downVote = () => {
+    if (voted) {
+      setSuccess(null);
+      setErr("You have already voted!");
+      return;
+    }
+
     setVotes((currentVotes) => currentVotes - 1);
 
     patchArticle(article_id, -1)
       .then((updatedArticle) => {
         setVotes(updatedArticle.votes);
+        setVoted(true);
         setErr(null);
         setSuccess("Thank you for voting!");
       })
@@ -67,16 +93,24 @@ export default function SingleArticle() {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "2rem" }}>
       {err ? (
-        <Alert variant="danger" style={{ textAlign: "center" }} dismissible
-        onClose={() => setErr(null)}>
+        <Alert
+          variant="danger"
+          style={{ textAlign: "center" }}
+          dismissible
+          onClose={() => setErr(null)}
+        >
           {err}
         </Alert>
       ) : null}
       {success ? (
-        <Alert variant="success" style={{ textAlign: "center" }} dismissible
-        onClose={() => setSuccess(null)}>
+        <Alert
+          variant="success"
+          style={{ textAlign: "center" }}
+          dismissible
+          onClose={() => setSuccess(null)}
+        >
           {success}
         </Alert>
       ) : null}
@@ -120,12 +154,12 @@ export default function SingleArticle() {
                 marginBottom: "1rem",
               }}
             />
-            <hr/>
+            <hr />
             <Card.Text style={{ textAlign: "justify", marginRight: "1rem" }}>
               {article.body}
             </Card.Text>
+            <hr />
             <Card.Text className="anchor-text-article">
-            <hr/>
               {article.comment_count} comments | Posted by {article.author} |
               Created at{" "}
               {new Date(article.created_at).toLocaleDateString("en-GB")} |{" "}
