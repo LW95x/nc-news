@@ -107,4 +107,8 @@ h2 {
   .card-text {
     font-size: 14px;
   }
+
+  .comment-input {
+    max-width: 60%;
+  }
 }

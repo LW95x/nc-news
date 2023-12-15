@@ -73,18 +73,19 @@ const AddComment = ({ article_id, setComments }) => {
           }}
         >
           <Form
-            onSubmit={handleSubmit}
+            id="comment-form" onSubmit={handleSubmit}
             style={{ width: "100%", height: "auto", padding: "1rem" }}
           >
             <Form.Group className="mb-3">
-              <Form.Label>Send a comment:</Form.Label>
-              <Form.Control
+              <Form.Label>Send a comment:
+              <Form.Control name="comment-input" className="comment-input"
                 as="textarea"
                 placeholder="Enter comment here..."
                 onChange={handleChange}
                 value={input}
-                style={{ height: "12rem", resize: "none" }}
+                style={{ height: "12rem", width: "38rem", resize: "none", marginTop: "0.5rem" }}
               />
+              </Form.Label>
             </Form.Group>
             <div className="submit-button">
             <Button variant="dark" type="submit" disabled={submitting}>
