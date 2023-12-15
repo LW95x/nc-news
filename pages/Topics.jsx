@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getTopics } from "../components/Api";
-import { Button, Card } from "react-bootstrap";
+import { Alert, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function Topics() {
@@ -13,7 +13,11 @@ export default function Topics() {
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <>
+      <Alert variant="secondary" style={{ textAlign: "center" }}>Loading...</Alert>
+      </>
+    )
   }
 
   function capFirstLetter(string) {

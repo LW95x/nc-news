@@ -9,6 +9,7 @@ const CommentList = ({ comments, setComments }) => {
   let { article_id } = useParams();
   const [success, setSuccess] = useState(null);
   const [err, setErr] = useState(null);
+  const [ApiErr, setApiErr] = useState(null);
 
   const handleSuccess = (message) => {
     setSuccess(message);
@@ -21,8 +22,18 @@ const CommentList = ({ comments, setComments }) => {
   useEffect(() => {
     getCommentsByArticle(article_id).then((res) => {
       setComments(res);
-    });
+    })
+    .catch( (err) => {
+      setApiErr(err);
+    })
   }, []);
+
+  if (ApiErr) {
+    return (
+      <Alert variant="danger" style={{ textAlign: "center" }}>{ApiErr}</Alert>
+    )
+  }
+
 
   return (
     <>
